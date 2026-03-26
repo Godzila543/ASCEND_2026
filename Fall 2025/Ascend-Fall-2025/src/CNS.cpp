@@ -29,12 +29,12 @@ void CNS::initializeMux()
 {
     // Initialize the MUX
     int tries = 0;
-    while (mux.begin() == false && tries < 3)
-    {
-        Serial.println("MUX Failed to Begin");
-        delay(500);
-        tries++;
-    }
+    // while (mux.begin() == false && tries < 3)
+    // {
+    //     Serial.println("MUX Failed to Begin");
+    //     delay(500);
+    //     tries++;
+    // }
     // dIsable all ports
     for (byte x = 0; x <= 7; x++)
     {
@@ -46,18 +46,18 @@ void CNS::enableMuxPort(int port)
 {
 
     // Serial.println("Enabling MUX port " + String(port));
-    if (port >= 0 && port <= 7 && mux.isConnected())
-    {
-        mux.setPort(port);
-    }
+    // if (port >= 0 && port <= 7 && mux.isConnected())
+    // {
+    //     mux.setPort(port);
+    // }
 }
 
 void CNS::disableMuxPort(int port)
 {
-    if (port >= 0 && port <= 7 && mux.isConnected())
-    {
-        mux.disablePort(port);
-    }
+    // if (port >= 0 && port <= 7 && mux.isConnected())
+    // {
+    //     mux.disablePort(port);
+    // }
 }
 
 Sensor *CNS::getSensor(int index)
