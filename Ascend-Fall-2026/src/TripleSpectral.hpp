@@ -32,12 +32,12 @@ public:
         sensor.setMeasurementMode(AS7265X_MEASUREMENT_MODE_6CHAN_ONE_SHOT); // Default: All 6 channels, all devices, just once
         sensor.setIntegrationCycles(50);
 
-        sensor.setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_12_5MA, AS7265x_LED_WHITE); // Default
-        sensor.setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_12_5MA, AS7265x_LED_UV);    // Default
-        sensor.setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_12_5MA, AS7265x_LED_IR);    // Default
+        // sensor.setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_12_5MA, AS7265x_LED_WHITE); // Default
+        // sensor.setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_12_5MA, AS7265x_LED_UV);    // Default
+        // sensor.setBulbCurrent(AS7265X_LED_CURRENT_LIMIT_12_5MA, AS7265x_LED_IR);    // Default
+        // sensor.setIndicatorCurrent(AS7265X_INDICATOR_CURRENT_LIMIT_8MA); // Default
 
-        sensor.enableIndicator();                                        // Default
-        sensor.setIndicatorCurrent(AS7265X_INDICATOR_CURRENT_LIMIT_8MA); // Default
+        sensor.disableIndicator(); // Default
 
         return 0; // Return 0 if successful
     };
@@ -51,7 +51,7 @@ public:
     }
     void readData()
     {
-        sensor.takeMeasurementsWithBulb();
+        sensor.takeMeasurements();
 
         // Store the data in our data array
         data[0] = sensor.getCalibratedA();
