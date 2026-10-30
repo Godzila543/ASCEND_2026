@@ -5,7 +5,7 @@
 ///////////////////////////////////////////////////////////////
 
 #include <Arduino.h>
-#include <SparkFun_I2C_Mux_Arduino_Library.h>
+// #include <SparkFun_I2C_Mux_Arduino_Library.h>
 
 #include "Sensor.hpp"
 #include "SD.hpp"
@@ -21,21 +21,26 @@
 // #include "TempSensor.hpp"
 #include "BME680.hpp"
 #include "NeopixelRing.hpp"
+#include "GravityOzone.hpp"
+#include "SGP30.hpp"
 
 class CNS
 {
 private:
     /* data */
-    Sensor *sensors[1] = {
-        // new BNO085(),
-        // new BME680(),
-        // new INA260()
-        new TripleSpectral()};
+    Sensor *sensors[6] = {
+        new BNO085(),
+        new BME680(),
+        new INA260(),
+        new TripleSpectral(),
+        new GravityOzone(),
+        new SGP30(),
+    };
 
     uSD sd;
     int LED_PIN = 13;
     int sensorsError = 0;
-    QWIICMUX mux;
+    // QWIICMUX mux;
     NeopixelRing neopixelRing;
     void enableMuxPort(int port);
     void disableMuxPort(int port);
@@ -43,7 +48,6 @@ private:
 public:
     CNS();
 
-    void initializeNeopixelRing();
     void initializeSD();
     void initializeMux();
     void initializeSensors();
@@ -53,10 +57,10 @@ public:
 
     Sensor *getSensor(int index);
     Sensor *getSensorByName(String name);
+    NeopixelRing &getNeopixelRing();
 
     void readSensorData();
     void printSensorData();
     void writeSensorData();
     void refreshSD();
-    void updateNeopixelRing();
 };
