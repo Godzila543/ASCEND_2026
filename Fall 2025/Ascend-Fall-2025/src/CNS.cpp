@@ -18,10 +18,8 @@ void CNS::initializeSD()
     {
         delay(1000);
         neopixelRing.setStatus(NeopixelRing::Status::SD_ERROR);
-        updateNeopixelRing();
     }
     neopixelRing.setStatus(NeopixelRing::Status::BOOT);
-    updateNeopixelRing();
     sd.debugMode = false;
 }
 
@@ -77,12 +75,9 @@ Sensor *CNS::getSensorByName(String name)
     return nullptr;
 }
 
-void CNS::initializeNeopixelRing()
+NeopixelRing &CNS::getNeopixelRing()
 {
-
-    neopixelRing.begin();
-    neopixelRing.setStatus(NeopixelRing::Status::BOOT);
-    updateNeopixelRing();
+    return neopixelRing;
 }
 
 void CNS::initializeSensors()
@@ -187,9 +182,4 @@ void CNS::refreshSD()
 {
     // Refresh the SD card
     sd.loop();
-}
-
-void CNS::updateNeopixelRing()
-{
-    neopixelRing.update();
 }

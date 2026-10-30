@@ -48,7 +48,6 @@ private:
 public:
     CNS();
 
-    void initializeNeopixelRing();
     void initializeSD();
     void initializeMux();
     void initializeSensors();
@@ -58,10 +57,10 @@ public:
 
     Sensor *getSensor(int index);
     Sensor *getSensorByName(String name);
+    NeopixelRing &getNeopixelRing();
 
     void readSensorData();
     void printSensorData();
     void writeSensorData();
     void refreshSD();
-    void updateNeopixelRing();
 };

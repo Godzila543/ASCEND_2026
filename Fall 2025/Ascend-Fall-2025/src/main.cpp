@@ -16,7 +16,6 @@ void setup()
     Wire.setClock(25000); // Set I2C frequency to 400kHz
     SPI.begin();
 
-    cns.initializeNeopixelRing();
     cns.initializeSD();
     // cns.initializeMux();
     cns.initializeSensors();
@@ -29,8 +28,29 @@ int loops = 0;
 void loop()
 {
     Serial.println("Starting Data Read Cycle");
-    cns.updateNeopixelRing();
+    // Animation is now handled by Core 1, no need to call here
     cns.readSensorData();
     cns.printSensorData();
     cns.refreshSD();
+}
+
+// Core 1 setup - Initialize animation on second core
+void setup1()
+{
+    delay(100); // Give Core 0 time to initialize
+    Serial.println("Core 1: Animation thread started");
+    cns.getNeopixelRing().begin();
+    cns.getNeopixelRing().setBrightness(50);
+    cns.getNeopixelRing().setStatus(NeopixelRing::Status::BOOT);
+    cns.getNeopixelRing().update();
+}
+
+// Core 1 loop - High-frequency animation updates (60+ FPS)
+void loop1()
+{
+    // Continuously update the NeoPixel animation
+    cns.getNeopixelRing().update();
+
+    // ~16ms delay for ~60 FPS animation
+    delayMicroseconds(16000);
 }
